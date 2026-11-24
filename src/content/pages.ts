@@ -8,7 +8,7 @@ const de = {
   pages: {
     home: {
       eyebrow: 'SOFTWARE ENGINEERING · WIEN', title: 'Weniger Handarbeit. Software, die passt.',
-      intro: 'Nexalane verbindet Ihre bestehenden Systeme und automatisiert Zeiterfassung, Excel-Abgleiche und Rechnungsprüfung. Das reduziert doppelte Eingaben und Nacharbeit – und kann je nach Ablauf mehrere Stunden pro Woche freisetzen.',
+      intro: 'Mehr Zeit für Ihr Kerngeschäft. Weniger manuelle Arbeit im Alltag. Nexalane automatisiert Abläufe und entwickelt Anwendungen, die Ihrem Team Arbeit abnehmen. Wir beginnen beim größten Engpass – mit einem überschaubaren ersten Schritt statt eines teuren IT-Großprojekts.',
       primary: 'Projektbeispiele ansehen', secondary: 'Problem besprechen',
       proof: 'Individuelle Software · Automatisierung · Systemintegration',
       sectionLabel: 'WAS NEXALANE UMSETZT', sectionTitle: 'Von Handarbeit zu einem Ablauf, der zusammenpasst.',
@@ -68,7 +68,7 @@ const en = {
   pages: {
     home: {
       eyebrow: 'SOFTWARE ENGINEERING · VIENNA', title: 'Less manual work. Software that fits.',
-      intro: 'Nexalane connects your existing systems and automates time tracking, spreadsheet reconciliation and invoice checks. That cuts duplicate entry and rework, and can free up several hours each week, depending on the workflow.',
+      intro: 'More time for the work that moves your business forward. Less manual effort day to day. Nexalane automates workflows and builds applications that take work off your team’s hands. We start with the biggest bottleneck in a manageable first step, without turning it into a costly IT project.',
       primary: 'See project examples', secondary: 'Discuss a problem', proof: 'Custom software · Automation · System integration',
       sectionLabel: 'WHAT NEXALANE DELIVERS', sectionTitle: 'From manual work to a workflow that fits together.',
       sectionIntro: 'You get a concrete technical delivery: purpose-built software, connected systems or automated steps—shaped around your process and handed over properly.',
