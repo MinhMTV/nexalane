@@ -4,35 +4,123 @@ import { pagePath } from '../lib/paths';
 interface Props { lang: Language }
 const { lang } = Astro.props;
 const de = lang === 'de';
-const projects = de ? [
-  { id: '01', kind: 'RECHNUNGEN · BUCHHALTUNG', title: 'Rechnungsdaten übernehmen statt abtippen.', friction: 'Jede Eingangsrechnung wird geöffnet und Lieferant, Datum, Betrag und Rechnungsnummer werden von Hand eingetragen.', solution: 'Das System liest die wichtigsten Felder aus, prüft Pflichtangaben und bereitet den Eintrag vor. Unklare Werte landen zur Kontrolle bei einer Person.', handoff: 'Nach Freigabe gehen die geprüften Daten an Buchhaltung oder ERP.', estimate: '60 Rechnungen × 4 Minuten weniger Erfassung = rund 4 Stunden pro Monat.', visual: 'paper' },
-  { id: '02', kind: 'ANFRAGEN · ANGEBOTE', title: 'Aus einer Anfrage wird ein Angebotsentwurf.', friction: 'Angaben aus E-Mails werden in Vorlagen kopiert. Fehlende Mengen oder Termine müssen einzeln nachgefragt werden.', solution: 'Die Anfrage wird nach Menge, Termin und Positionen sortiert. Fehlende Angaben werden gesammelt; ein Entwurf entsteht aus bestehenden Preisregeln.', handoff: 'Eine Person prüft Preis und Inhalt, bevor das Angebot versendet wird.', estimate: '25 Anfragen × 8 Minuten weniger Kopieren = rund 3 Stunden 20 Minuten pro Monat.', visual: 'quote' },
-  { id: '03', kind: 'QUITTUNGEN · AUSLAGEN', title: 'Quittungen schneller zuordnen und verbuchen.', friction: 'Papierbelege und Handyfotos müssen später wiedergefunden, eingetragen und mit Buchungen abgeglichen werden.', solution: 'Das System liest Datum und Betrag aus, schlägt eine passende Buchung vor und markiert Fälle, die nicht eindeutig zusammenpassen.', handoff: 'Geprüfte Belege und Zuordnungen gehen gesammelt an die Buchhaltung.', estimate: '80 Belege × 3 Minuten weniger Suchen und Erfassen = rund 4 Stunden pro Monat.', visual: 'ledger' },
+const examples = de ? [
+  {
+    topic: 'ZEITERFASSUNG · LOHNVERRECHNUNG',
+    title: 'Arbeitszeit beim Start erfassen – nicht am Freitag rekonstruieren.',
+    today: 'Mitarbeitende tragen Beginn, Ende und Projekt später aus dem Gedächtnis in eine Liste ein. Die Leitung sucht fehlende Angaben und korrigiert Übertragungsfehler.',
+    automation: 'Ein Klick beim Start, Ende oder Projektwechsel erfasst den Zeitpunkt sofort. Zeiten landen direkt beim richtigen Auftrag; fehlende Buchungen werden gesammelt angezeigt.',
+    review: 'Die Teamleitung prüft nur Abweichungen und gibt die fertige Übersicht für die Lohnverrechnung frei.',
+    saving: '8 Std. 20 Min.',
+    basis: '20 Mitarbeitende × 5 Minuten pro Arbeitstag × 5 Tage = 500 Minuten pro Woche.',
+    visual: 'time',
+  },
+  {
+    topic: 'EXCEL · AUFTRAGSSTATUS',
+    title: 'Auftragsstatus einmal aktualisieren statt in mehreren Listen suchen.',
+    today: 'Auftragsnummern, Liefertermine und Rückmeldungen werden in unterschiedlichen Excel-Listen gepflegt. Für die Wochenübersicht fragt jemand Änderungen per E-Mail nach.',
+    automation: 'Ein gemeinsamer Ablauf hält Status und Termine an einer Stelle aktuell. Beteiligte sehen ihre offenen Aufgaben; die Wochenübersicht entsteht aus denselben Daten.',
+    review: 'Ausnahmen wie verspätete Lieferungen bleiben sichtbar und gehen an die zuständige Person.',
+    saving: '6 Std. 40 Min.',
+    basis: '8 Personen × 10 Minuten Listenabgleich pro Arbeitstag × 5 Tage = 400 Minuten pro Woche.',
+    visual: 'sheets',
+  },
+  {
+    topic: 'DATENANALYSE · WOCHENREPORT',
+    title: 'Wochenzahlen zusammenführen, statt sie aus Exporten abzuschreiben.',
+    today: 'Für den Wochenreport werden Zahlen aus Verkauf, Projektverwaltung und Buchhaltung exportiert, in Excel zusammenkopiert und auf widersprüchliche Werte geprüft.',
+    automation: 'Die vereinbarten Kennzahlen werden aus den vorhandenen Quellen zusammengeführt. Fehlende Daten und auffällige Abweichungen werden markiert, bevor der Report erstellt wird.',
+    review: 'Das Team prüft markierte Abweichungen und entscheidet, welche Zahlen kommentiert werden müssen.',
+    saving: '4 Std. 30 Min.',
+    basis: '3 Teams × 90 Minuten Export, Zusammenführen und Prüfen = 270 Minuten pro Woche.',
+    visual: 'report',
+  },
+  {
+    topic: 'EINGANGSRECHNUNGEN · BUCHHALTUNG',
+    title: 'Rechnungen prüfen lassen, statt jedes Feld von Hand einzutippen.',
+    today: 'Lieferant, Rechnungsnummer, Datum, Betrag und Fälligkeit werden aus jeder PDF-Rechnung in Buchhaltung oder ERP übertragen.',
+    automation: 'Die Felder werden ausgelesen, Pflichtangaben geprüft und zur Freigabe vorbereitet. Doppelte oder unklare Rechnungen werden aussortiert.',
+    review: 'Eine Person kontrolliert die erkannten Daten und gibt die Rechnung frei, bevor sie verbucht wird.',
+    saving: '4 Std.',
+    basis: '40 Rechnungen pro Woche × 6 Minuten weniger manuelle Erfassung = 240 Minuten.',
+    visual: 'invoice',
+  },
 ] : [
-  { id: '01', kind: 'INVOICES · BOOKKEEPING', title: 'Capture invoice details instead of retyping them.', friction: 'Supplier, date, amount and invoice number are entered by hand for every incoming invoice.', solution: 'The system reads key fields, checks required details and prepares the entry. Unclear values go to a person for review.', handoff: 'Once approved, checked data goes to accounting or ERP.', estimate: '60 invoices × 4 minutes less entry = around 4 hours per month.', visual: 'paper' },
-  { id: '02', kind: 'ENQUIRIES · QUOTES', title: 'Turn an enquiry into a quote draft.', friction: 'Details from emails are copied into templates. Missing quantities or dates have to be chased separately.', solution: 'Sort the enquiry by quantity, date and items. Collect missing details and prepare a draft using existing pricing rules.', handoff: 'A person reviews the price and content before sending.', estimate: '25 enquiries × 8 minutes less copying = around 3 hours 20 minutes per month.', visual: 'quote' },
-  { id: '03', kind: 'RECEIPTS · EXPENSES', title: 'Match receipts and record expenses faster.', friction: 'Paper receipts and phone photos must be found, entered and matched to transactions later.', solution: 'The system reads the date and amount, suggests a matching transaction and flags cases that need review.', handoff: 'Checked receipts and matches go to accounting together.', estimate: '80 receipts × 3 minutes less searching and entry = around 4 hours per month.', visual: 'ledger' },
+  {
+    topic: 'TIME TRACKING · PAYROLL',
+    title: 'Record time at the start, instead of reconstructing it on Friday.',
+    today: 'People enter start times, finishes and project hours from memory later. Managers chase missing details and correct transfer errors.',
+    automation: 'One click at start, finish or project change records the time immediately. Entries go to the right job; missing records are grouped for review.',
+    review: 'The manager checks exceptions and approves the completed overview for payroll.',
+    saving: '8 hr 20 min',
+    basis: '20 people × 5 minutes per workday × 5 days = 500 minutes per week.',
+    visual: 'time',
+  },
+  {
+    topic: 'SPREADSHEETS · ORDER STATUS',
+    title: 'Update an order once, instead of hunting across spreadsheets.',
+    today: 'Order numbers, delivery dates and updates live in separate Excel files. Someone emails colleagues to prepare the weekly status report.',
+    automation: 'One shared workflow keeps status and dates together. People see their open tasks; the weekly overview uses the same data.',
+    review: 'Exceptions such as delayed deliveries stay visible and go to the right person.',
+    saving: '6 hr 40 min',
+    basis: '8 people × 10 minutes reconciling lists per workday × 5 days = 400 minutes per week.',
+    visual: 'sheets',
+  },
+  {
+    topic: 'DATA ANALYSIS · WEEKLY REPORT',
+    title: 'Combine weekly numbers instead of copying them from exports.',
+    today: 'Sales, project and finance figures are exported, pasted into Excel and checked for conflicting values.',
+    automation: 'Agreed metrics are combined from existing sources. Missing data and unusual differences are flagged before the report is prepared.',
+    review: 'The team reviews flagged differences and decides which figures need a comment.',
+    saving: '4 hr 30 min',
+    basis: '3 teams × 90 minutes exporting, combining and checking = 270 minutes per week.',
+    visual: 'report',
+  },
+  {
+    topic: 'SUPPLIER INVOICES · BOOKKEEPING',
+    title: 'Review invoices instead of typing every field by hand.',
+    today: 'Supplier, invoice number, date, amount and due date are copied from each PDF into accounting or ERP software.',
+    automation: 'Fields are extracted, required details checked and the entry prepared for approval. Duplicates and unclear invoices are flagged.',
+    review: 'A person checks the extracted details and approves the invoice before it is posted.',
+    saving: '4 hr',
+    basis: '40 invoices per week × 6 minutes less manual entry = 240 minutes.',
+    visual: 'invoice',
+  },
 ];
 ---
-<section class="practical-projects" aria-label={de ? 'Lösungskonzepte für wiederkehrende Arbeit' : 'Solution concepts for recurring work'}>
-  <div class="projects-intro"><h2>{de ? 'Drei Abläufe, die im Alltag Zeit kosten.' : 'Three workflows that take time every day.'}</h2><span>{de ? 'Jedes Beispiel zeigt den Handgriff, den die Software übernimmt, was weiterhin geprüft wird und wie eine mögliche Ersparnis zustande kommt.' : 'Each example shows the task software can take over, what still needs review and how potential savings are calculated.'}</span></div>
-  <div class="project-list">
-    {projects.map(project => <article class:list={['project-story', `project-${project.visual}`]}>
-      <div class="project-visual" aria-hidden="true">
-        {project.visual === 'paper' && <div class="paper-path"><div class="paper-sheet"><span>{de ? 'EINGANGSRECHNUNG' : 'SUPPLIER INVOICE'}</span><i></i><i></i><i></i><b>{de ? 'Lieferant · Betrag' : 'Supplier · amount'}</b></div><div class="paper-steps"><span>{de ? 'Beleg' : 'Document'}</span><b>→</b><span>{de ? 'Prüfung' : 'Review'}</span><b>→</b><span>{de ? 'Freigabe' : 'Approval'}</span></div></div>}
-        {project.visual === 'quote' && <div class="quote-path"><div class="quote-note"><span>✉</span><p>{de ? 'Anfrage mit Menge, Liefertermin und offenen Angaben.' : 'An enquiry with quantity, delivery date and missing details.'}</p></div><div class="quote-arrow">↓</div><div class="quote-output"><span>{de ? 'ANGEBOTSENTWURF' : 'QUOTE DRAFT'}</span><strong>{de ? 'Positionen vorbereitet' : 'Line items prepared'}</strong><small>{de ? 'Menge · Preisregel · Liefertermin' : 'Quantity · pricing rule · delivery date'}</small></div></div>}
-        {project.visual === 'ledger' && <div class="ledger-path"><div class="ledger-receipt"><span>{de ? 'BELEG' : 'RECEIPT'}</span><strong>{de ? 'Datum' : 'Date'}</strong><small>{de ? 'Betrag · Händler' : 'Amount · merchant'}</small></div><div class="ledger-match"><span>{de ? 'ZUORDNUNG' : 'MATCH'}</span><b>↔</b><small>{de ? 'Kontoauszug' : 'Bank statement'}</small></div><div class="ledger-result"><b>✓</b><span>{de ? 'Abgeglichen' : 'Matched'}</span></div></div>}
+<section class="practical-projects" aria-label={de ? 'Alltagsabläufe mit Automatisierung' : 'Everyday workflows with automation'}>
+  <div class="projects-intro">
+    <h2>{de ? 'Vier alltägliche Abläufe. Deutlich weniger Handarbeit.' : 'Four everyday workflows. Less manual work.'}</h2>
+    <p>{de ? 'Die Beispiele zeigen typische Ansatzpunkte, keine abgeschlossenen Kundenprojekte. Jede Zeitrechnung nennt ihre Annahmen; wie viel sich tatsächlich sparen lässt, hängt vom heutigen Ablauf ab.' : 'These are common use cases, not completed client projects. Each estimate shows its assumptions; actual savings depend on the current workflow.'}</p>
+  </div>
+  <div class="example-list">
+    {examples.map(example => <article class:list={['example-story', `example-${example.visual}`]}>
+      <div class="example-visual" aria-hidden="true">
+        {example.visual === 'time' && <div class="time-illustration"><div class="time-sheet"><span>{de ? 'ZEITEN DIESE WOCHE' : 'TIMES THIS WEEK'}</span><div><b>Mo</b><i></i><small>08:02 — 16:31</small></div><div><b>Di</b><i></i><small>07:56 — 16:08</small></div><div><b>Mi</b><i></i><small>08:11 — 16:42</small></div><div class="time-faded"><b>Do</b><i></i><small>{de ? 'später eintragen …' : 'add later …'}</small></div></div><div class="time-stamp"><span>{de ? 'JETZT' : 'NOW'}</span><strong>{de ? 'Klick.' : 'Tap.'}</strong><i></i><small>{de ? 'Zeit gespeichert' : 'Time recorded'}</small></div></div>}
+        {example.visual === 'sheets' && <div class="sheets-illustration"><div class="paper-stack"><div class="paper-list list-back"><b>{de ? 'LIEFERUNG' : 'DELIVERY'}</b><i></i><i></i><i></i></div><div class="paper-list list-front"><b>{de ? 'AUFTRÄGE' : 'ORDERS'}</b><span><i></i><small>{de ? 'Offen' : 'Open'}</small></span><span><i></i><small>{de ? 'In Arbeit' : 'In progress'}</small></span><span><i></i><small>{de ? 'Erledigt' : 'Done'}</small></span></div></div><div class="single-source"><b>{de ? 'EIN AKTUELLER STAND' : 'ONE CURRENT STATUS'}</b><span>{de ? 'Einmal ändern · überall sehen' : 'Update once · see it everywhere'}</span></div></div>}
+        {example.visual === 'report' && <div class="report-illustration"><div class="report-source"><span>{de ? 'VERKAUF' : 'SALES'}</span><span>{de ? 'PROJEKTE' : 'PROJECTS'}</span><span>{de ? 'FINANZEN' : 'FINANCE'}</span></div><div class="report-join"><i></i><i></i><i></i></div><div class="report-page"><span>{de ? 'WOCHENREPORT' : 'WEEKLY REPORT'}</span><strong>{de ? 'Zahlen zusammengeführt' : 'Figures combined'}</strong><div class="report-lines"><i></i><i></i><i></i></div><small>{de ? 'Abweichungen zur Prüfung markiert' : 'Differences flagged for review'}</small></div></div>}
+        {example.visual === 'invoice' && <div class="invoice-illustration"><div class="invoice-page"><span>{de ? 'EINGANGSRECHNUNG' : 'SUPPLIER INVOICE'}</span><i></i><i></i><i></i><i></i><b>{de ? 'Lieferant · Betrag · Fälligkeit' : 'Supplier · amount · due date'}</b></div><div class="invoice-check"><span>{de ? 'PRÜFUNG' : 'CHECK'}</span><strong>{de ? 'Felder erkannt' : 'Fields captured'}</strong><small>{de ? 'Freigabe durch Team' : 'Team approval'}</small></div></div>}
       </div>
-      <div class="project-copy"><span class="project-kind">{project.kind}</span><h3>{project.title}</h3><dl><div><dt>{de ? 'Der Aufwand' : 'The effort'}</dt><dd>{project.friction}</dd></div><div><dt>{de ? 'Was entfällt' : 'What changes'}</dt><dd>{project.solution}</dd></div><div><dt>{de ? 'Im Alltag' : 'In practice'}</dt><dd>{project.handoff}</dd></div></dl><div class="project-estimate"><strong>{de ? 'Mögliches Zeitpotenzial' : 'Potential time saved'}</strong><span>{project.estimate}</span></div><a href={pagePath(lang,'contact')}>{de ? 'Diesen Ablauf besprechen' : 'Discuss this workflow'} <span>↗</span></a></div>
+      <div class="example-copy">
+        <span class="example-topic">{example.topic}</span>
+        <h3>{example.title}</h3>
+        <dl>
+          <div><dt>{de ? 'Heute' : 'Today'}</dt><dd>{example.today}</dd></div>
+          <div><dt>{de ? 'Automatisiert' : 'Automated'}</dt><dd>{example.automation}</dd></div>
+          <div><dt>{de ? 'Kontrolle' : 'Human review'}</dt><dd>{example.review}</dd></div>
+        </dl>
+        <div class="saving-line"><strong>{example.saving}<small>{de ? 'möglich pro Woche' : 'potential per week'}</small></strong><div><b>{de ? 'Beispielrechnung' : 'Example calculation'}</b><span>{example.basis}</span></div></div>
+        <a href={pagePath(lang, 'contact')}>{de ? 'Diesen Ablauf besprechen' : 'Discuss this workflow'} <span aria-hidden="true">↗</span></a>
+      </div>
     </article>)}
   </div>
 </section>
 <style>
-  .practical-projects{padding:28px 24px 86px;background:#f7f8f4}.projects-intro,.project-list{max-width:var(--page);margin:auto}.projects-intro{padding:38px 0 34px;display:grid;grid-template-columns:.95fr 1fr;column-gap:60px;align-items:end}.projects-intro h2{font:750 clamp(32px,4vw,49px)/1.06 var(--font-display);color:#10283f;letter-spacing:-.045em;margin:0;max-width:570px}.projects-intro>span{font-size:13px;line-height:1.8;color:#405b63;max-width:470px}
-  .project-story{display:grid;grid-template-columns:.95fr 1fr;gap:clamp(35px,7vw,92px);align-items:center;padding:38px 0;border-top:1px solid #d4dfda}.project-story:nth-child(even) .project-visual{order:2}.project-visual{min-height:300px;display:grid;place-items:center;overflow:hidden}.project-paper .project-visual{background:#f2e9de}.project-quote .project-visual{background:#dcece8}.project-ledger .project-visual{background:#e8e9f2}.project-kind{font:700 9px ui-monospace,monospace;letter-spacing:.13em;color:#08766d}.project-copy h3{font:750 clamp(25px,3vw,36px)/1.1 var(--font-display);letter-spacing:-.04em;color:#10283f;margin:11px 0 19px}.project-copy dl{margin:0}.project-copy dl>div{display:grid;grid-template-columns:100px 1fr;gap:14px;padding:11px 0;border-top:1px solid #dce4e0}.project-copy dt{font-size:10px;font-weight:700;color:#183b4c}.project-copy dd{margin:0;font-size:11px;line-height:1.7;color:#405b63}.project-estimate{margin-top:12px;padding:14px 15px;background:#e5f0ec;color:#183b4c;display:grid;gap:5px}.project-estimate strong{font-size:11px}.project-estimate span{font-size:11px;line-height:1.6;color:#324f56}.project-copy>a{display:inline-flex;align-items:center;gap:14px;margin-top:18px;color:#075f59;font-size:11px;font-weight:700;text-decoration-thickness:1px;text-underline-offset:4px}
-  .paper-path{width:80%;max-width:430px;display:flex;align-items:center;gap:20px}.paper-sheet{width:155px;min-height:192px;background:#fff;padding:18px 15px;box-shadow:0 12px 25px #3b2a1e18;transform:rotate(-3deg);display:flex;flex-direction:column;gap:12px;color:#183b4c}.paper-sheet span,.quote-output>span,.ledger-match>span{font:700 8px ui-monospace,monospace;color:#a15a35;letter-spacing:.11em}.paper-sheet i{height:3px;background:#e4e8e5}.paper-sheet i:nth-of-type(2){width:65%}.paper-sheet i:nth-of-type(3){width:82%}.paper-sheet b{margin-top:auto;text-align:right;font:700 13px var(--font-display)}.paper-steps{display:grid;gap:8px;color:#075f59;font-size:9px;font-weight:700}.paper-steps b{text-align:center;color:#7b9690}
-  .quote-path{width:76%;max-width:420px;display:grid;justify-items:center}.quote-note{width:100%;padding:18px;background:#fff;display:flex;align-items:flex-start;gap:13px;box-shadow:0 10px 24px #183b4c13;color:#274c55}.quote-note>span{font-size:19px;color:#087f76}.quote-note p{font:italic 13px/1.6 var(--font-display);margin:0}.quote-arrow{color:#087f76;font-size:19px;padding:5px}.quote-output{width:85%;padding:17px 19px;background:#143b50;color:#fff;display:grid;gap:8px}.quote-output>span{color:#9ad4c9}.quote-output strong{font-size:12px}.quote-output small{font-size:9px;color:#c3d5d7}
-  .ledger-path{display:flex;align-items:center;gap:14px;width:86%;max-width:440px}.ledger-receipt{width:125px;height:175px;background:#fff;padding:18px 13px;box-shadow:0 10px 20px #272a4610;display:flex;flex-direction:column;gap:15px;clip-path:polygon(0 0,100% 0,100% 94%,95% 100%,90% 94%,85% 100%,80% 94%,75% 100%,70% 94%,65% 100%,60% 94%,55% 100%,50% 94%,45% 100%,40% 94%,35% 100%,30% 94%,25% 100%,20% 94%,15% 100%,10% 94%,5% 100%,0 94%);color:#273754}.ledger-receipt>span{font:700 8px ui-monospace,monospace;letter-spacing:.12em;color:#656985}.ledger-receipt strong{font:700 19px var(--font-display)}.ledger-receipt small{font:8px ui-monospace,monospace;color:#727891}.ledger-match{display:grid;justify-items:center;gap:8px;color:#273754}.ledger-match>b{font-size:25px;color:#7966ad}.ledger-match small{font-size:8px;color:#555d73}.ledger-result{display:grid;justify-items:center;gap:6px;padding:12px;background:#fff;color:#335d52;font-size:9px}.ledger-result b{font-size:23px}
-  @media(max-width:760px){.projects-intro{grid-template-columns:1fr;gap:15px;padding-top:24px}.project-story{grid-template-columns:1fr;gap:22px;padding:27px 0}.project-story:nth-child(even) .project-visual{order:0}.project-visual{min-height:250px}}
-  @media(max-width:480px){.practical-projects{padding:15px 20px 65px}.project-visual{min-height:220px}.paper-path{gap:12px}.paper-sheet{width:135px}.paper-steps{font-size:8px}.project-copy dl>div{grid-template-columns:82px 1fr;gap:10px}.ledger-path{gap:9px}}
+  .practical-projects{padding:28px 24px 86px;background:#f7f8f4}.projects-intro,.example-list{max-width:var(--page);margin:auto}.projects-intro{padding:38px 0 34px;display:grid;grid-template-columns:.95fr 1fr;gap:55px;align-items:end}.projects-intro h2{font:750 clamp(32px,4vw,49px)/1.06 var(--font-display);color:#10283f;letter-spacing:-.045em;margin:0;max-width:590px}.projects-intro p{font-size:13px;line-height:1.8;color:#405b63;max-width:470px;margin:0}.example-story{display:grid;grid-template-columns:.95fr 1fr;gap:clamp(35px,7vw,92px);align-items:center;padding:38px 0;border-top:1px solid #d4dfda}.example-story:nth-child(even) .example-visual{order:2}.example-visual{min-height:310px;display:grid;place-items:center;overflow:hidden}.example-time .example-visual{background:#f0e9df}.example-sheets .example-visual{background:#e3eee9}.example-report .example-visual{background:#e7e9f1}.example-invoice .example-visual{background:#f1e8e2}.example-topic{font:700 9px ui-monospace,monospace;letter-spacing:.12em;color:#08766d}.example-copy h3{font:750 clamp(25px,3vw,36px)/1.1 var(--font-display);letter-spacing:-.04em;color:#10283f;margin:11px 0 19px}.example-copy dl{margin:0}.example-copy dl>div{display:grid;grid-template-columns:94px 1fr;gap:13px;padding:10px 0;border-top:1px solid #dce4e0}.example-copy dt{font-size:10px;font-weight:700;color:#183b4c}.example-copy dd{margin:0;font-size:11px;line-height:1.7;color:#405b63}.saving-line{display:grid;grid-template-columns:150px 1fr;gap:15px;align-items:center;margin-top:15px;padding:15px 0;border-top:1px solid #b8cec7;border-bottom:1px solid #b8cec7;color:#183b4c}.saving-line>strong{font:750 24px/1.05 var(--font-display);letter-spacing:-.04em;color:#075f59}.saving-line>strong small{display:block;margin-top:5px;font:600 9px/1.4 var(--font-body);letter-spacing:0;color:#405b63}.saving-line>div{display:grid;gap:4px}.saving-line>div b{font-size:10px}.saving-line>div span{font-size:10px;line-height:1.55;color:#405b63}.example-copy>a{display:inline-flex;align-items:center;gap:12px;margin-top:17px;color:#075f59;font-size:11px;font-weight:700;text-decoration-thickness:1px;text-underline-offset:4px}
+  .time-illustration{width:82%;max-width:440px;display:flex;align-items:center;justify-content:center;gap:15px}.time-sheet{width:235px;padding:20px 17px;background:#fff;color:#223f4b;transform:rotate(-3deg);box-shadow:0 12px 25px #3b2a1e18}.time-sheet>span,.invoice-page>span,.invoice-check>span{font:700 8px ui-monospace,monospace;letter-spacing:.1em;color:#8f624a}.time-sheet>div{display:grid;grid-template-columns:24px 1fr auto;gap:7px;align-items:center;padding:12px 0 7px;border-bottom:1px solid #e8ece9}.time-sheet>div b{font-size:9px}.time-sheet>div i{height:1px;background:#bad0ca}.time-sheet>div small{font:8px ui-monospace,monospace;color:#405b63}.time-sheet>div.time-faded{opacity:.48}.time-stamp{width:132px;height:132px;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(5deg);border:2px solid #08766d;border-radius:50%;color:#075f59}.time-stamp span{font:700 8px ui-monospace,monospace;letter-spacing:.14em}.time-stamp strong{font:750 27px var(--font-display);margin:1px 0}.time-stamp i{width:28px;border-top:1px solid #73a99d}.time-stamp small{font-size:8px;margin-top:6px}
+  .sheets-illustration{width:78%;max-width:430px;display:grid;justify-items:center;gap:22px}.paper-stack{position:relative;width:260px;height:210px}.paper-list{position:absolute;width:215px;height:173px;padding:17px;background:#fff;color:#23434c;box-shadow:0 10px 23px #183b4c13}.paper-list b{display:block;font:700 8px ui-monospace,monospace;letter-spacing:.12em;color:#45646b;padding-bottom:12px;border-bottom:1px solid #e0e8e4}.paper-list i{display:block;height:3px;background:#dce5e1;margin-top:19px}.list-back{top:5px;right:3px;transform:rotate(5deg);background:#fdfdfc}.list-front{left:0;bottom:0;transform:rotate(-4deg)}.list-front span{display:grid;grid-template-columns:12px 1fr;gap:8px;align-items:center;margin-top:17px}.list-front span i{width:8px;height:8px;border:1px solid #71a79a;border-radius:50%}.list-front small{font-size:9px;color:#405b63}.single-source{display:flex;align-items:center;gap:14px;color:#183b4c}.single-source b{font:700 8px ui-monospace,monospace;letter-spacing:.08em}.single-source span{font-size:10px;color:#405b63}
+  .report-illustration{width:78%;max-width:410px;display:grid;grid-template-columns:1fr 50px 1.4fr;align-items:center}.report-source{display:grid;gap:11px}.report-source span{padding:13px 10px;background:#fff;box-shadow:0 7px 16px #183b4c10;color:#294c57;font:700 8px ui-monospace,monospace;letter-spacing:.09em;text-align:center}.report-join{display:grid;gap:31px}.report-join i{height:1px;background:#807cae}.report-page{padding:17px 14px;background:#fff;transform:rotate(2deg);box-shadow:0 12px 25px #272a4610;color:#273754}.report-page>span{font:700 7px ui-monospace,monospace;letter-spacing:.1em;color:#7966ad}.report-page>strong{display:block;font:700 15px/1.2 var(--font-display);margin:15px 0 12px}.report-lines{display:grid;gap:7px}.report-lines i{height:3px;background:#e3e5ec}.report-lines i:nth-child(2){width:75%}.report-lines i:nth-child(3){width:88%}.report-page small{display:block;margin-top:13px;font-size:8px;color:#43546c}
+  .invoice-illustration{width:78%;max-width:420px;display:flex;align-items:center;justify-content:center;gap:23px}.invoice-page{width:205px;min-height:220px;padding:20px 17px;background:#fff;transform:rotate(-4deg);box-shadow:0 12px 25px #3b2a1e18;display:flex;flex-direction:column;gap:17px;color:#183b4c}.invoice-page>i{height:3px;background:#e4e8e5}.invoice-page>i:nth-of-type(2){width:66%}.invoice-page>i:nth-of-type(3){width:82%}.invoice-page>i:nth-of-type(4){width:54%}.invoice-page>b{margin-top:auto;font-size:9px;color:#405b63}.invoice-check{display:grid;gap:11px;padding:17px;background:#143b50;color:#fff}.invoice-check>span{color:#9ad4c9}.invoice-check strong{font-size:12px}.invoice-check small{font-size:9px;color:#d2e2df}
+  @media(max-width:760px){.projects-intro{grid-template-columns:1fr;gap:15px;padding-top:24px}.example-story{grid-template-columns:1fr;gap:22px;padding:27px 0}.example-story:nth-child(even) .example-visual{order:0}.example-visual{min-height:270px}}
+  @media(max-width:480px){.practical-projects{padding:15px 20px 65px}.example-visual{min-height:240px}.example-copy dl>div{grid-template-columns:78px 1fr;gap:10px}.saving-line{grid-template-columns:1fr;gap:8px}.saving-line>strong{font-size:21px}.time-illustration{gap:8px}.time-sheet{width:195px;padding:15px 12px}.time-sheet>div{grid-template-columns:19px 1fr;gap:5px}.time-sheet>div small{grid-column:2;font-size:7px}.time-stamp{width:108px;height:108px}.time-stamp strong{font-size:23px}.paper-stack{width:235px}.single-source{flex-direction:column;align-items:flex-start;gap:5px}.report-illustration{width:94%;grid-template-columns:1fr 32px 1.25fr}.invoice-illustration{gap:12px}.invoice-page{width:170px;min-height:200px;padding:15px 12px}.invoice-check{padding:12px}}
 </style>
