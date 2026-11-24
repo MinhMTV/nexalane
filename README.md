@@ -18,6 +18,10 @@ npm run preview
 
 The production site is generated in `dist/`. GitHub Actions deploys every push to `main`; no manual build or upload is needed after the initial setup. In GitHub, choose **Settings → Pages → Build and deployment → GitHub Actions**.
 
+### Current Pages URL
+
+The repository is named `nexalane`, so the current GitHub Pages project path is `https://minh-vuong.de/nexalane/` (Austria: `/at/`, Germany: `/de/`). After registering `nexalanetech.com`, assign it to this repository under **Settings → Pages → Custom domain** and set the `SITE_URL` Actions variable to `https://nexalanetech.com`. The final locale URLs will then be `https://nexalanetech.com/at/` and `https://nexalanetech.com/de/` without a repository subpath.
+
 ### Custom domain
 
 1. Register `nexalanetech.com` with a domain registrar.
