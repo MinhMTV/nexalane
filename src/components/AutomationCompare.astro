@@ -1,0 +1,18 @@
+---
+interface Props { lang: 'de' | 'en' }
+const { lang } = Astro.props;
+const de = lang === 'de';
+---
+<section class="compare">
+  <div class="compare-head"><span class="eyebrow"><i></i>{de?'PROZESSAUTOMATISIERUNG':'PROCESS AUTOMATION'}</span><h2>{de?'Von manuellen Übergaben zu einem nachvollziehbaren Ablauf.':'From manual handoffs to a workflow you can trace.'}</h2></div>
+  <div class="compare-grid">
+    <div class="manual"><div class="compare-label"><span>01</span>{de?'HEUTE · MANUELL':'TODAY · MANUAL'}</div><div class="manual-flow"><div><b>@</b><span>E-Mail</span></div><i>→</i><div><b>▦</b><span>Excel</span></div><i>→</i><div><b>▤</b><span>{de?'Verwaltung':'Business app'}</span></div></div><p>{de?'Daten werden kopiert, geprüft und mehrfach erfasst. Fehler und Rückfragen bleiben schwer nachvollziehbar.':'Data is copied, checked and entered again. Errors and follow-up questions are hard to trace.'}</p></div>
+    <div class="automated"><div class="compare-label"><span>02</span>{de?'MIT AUTOMATISIERUNG':'WITH AUTOMATION'}</div><div class="auto-flow"><div class="flow-start">{de?'Eingang':'Input'}<small>{de?'E-Mail · Formular':'Email · Form'}</small></div><div class="flow-connector"></div><div class="flow-validate"><b>✓</b><span>{de?'Prüfen':'Validate'}</span><small>{de?'Pflichtfelder · Regeln':'Fields · rules'}</small></div><div class="flow-connector"></div><div class="flow-end">{de?'Synchronisiert':'Synced'}<small>{de?'Systeme · Protokoll':'Systems · log'}</small></div></div><p>{de?'Ein geprüfter Ablauf überträgt Daten konsistent und zeigt, was erfolgreich war oder Aufmerksamkeit braucht.':'A validated workflow moves data consistently and shows what succeeded or needs attention.'}</p></div>
+  </div>
+</section>
+<style>
+ .compare{background:#f5f7f6;padding:69px max(24px,calc((100% - var(--page))/2)) 75px}.compare-head{max-width:700px}.compare-head h2{font:700 clamp(32px,4vw,45px)/1.1 var(--font-display);letter-spacing:-.05em;color:var(--navy);margin:15px 0 30px}.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#dfe7e3;border:1px solid #dfe7e3}.manual,.automated{background:#fff;padding:24px 25px 21px}.automated{background:#fafffd}.compare-label{display:flex;align-items:center;gap:9px;font:700 8px ui-monospace,monospace;letter-spacing:.13em;color:#526a70}.compare-label span{color:var(--teal)}.manual-flow,.auto-flow{height:100px;display:flex;align-items:center;justify-content:space-between;gap:8px}.manual-flow>div,.flow-start,.flow-end,.flow-validate{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:1px solid #e1e8e5;background:#fbfcfc;min-width:74px;height:55px;color:#425e65;font-size:9px}.manual-flow>div b{font-size:16px;color:#53686d}.manual-flow>i{font-style:normal;color:#acb8b8}.flow-start,.flow-end{background:#f4f7f6}.flow-validate{border-color:#b6d8cf;background:#eff8f5;min-width:100px}.flow-validate b{font-size:15px;color:#239176}.flow-start small,.flow-end small,.flow-validate small{font-size:7px;color:#53686d}.flow-connector{flex:1;border-top:1px solid #83bdb1;max-width:40px}.automated p,.manual p{font-size:10px;line-height:1.75;color:#566c71;max-width:450px;margin:0}.manual{background-image:linear-gradient(135deg,transparent 0 97%,#f0f3f2 97%)}
+ @media(max-width:650px){.compare{padding:50px 20px}.compare-grid{grid-template-columns:1fr}.manual,.automated{padding:20px 16px}.compare-head h2{font-size:35px}}
+ @media(max-width:380px){.manual-flow>div{min-width:58px}.flow-start,.flow-end{min-width:65px}.flow-validate{min-width:82px}.manual-flow,.auto-flow{gap:4px}}
+</style>
+

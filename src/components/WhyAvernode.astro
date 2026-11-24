@@ -1,0 +1,22 @@
+---
+interface Props { lang: 'de' | 'en' }
+const de = Astro.props.lang === 'de';
+const points = de ? [
+  ['Bestehendes sinnvoll erweitern', 'ERP, CRM oder Fachsoftware bleiben im Einsatz, wenn sie grundsätzlich passen. AVERNODE verbindet Lücken und ersetzt nur, was wirklich ersetzt werden muss.'],
+  ['Schritt für Schritt liefern', 'Ein klar abgegrenzter erster Baustein macht Nutzen, Aufwand und offene Fragen früh sichtbar – bevor ein Großprojekt daraus wird.'],
+  ['Technik übergabefähig bauen', 'Schnittstellen, Entscheidungen und Betrieb werden dokumentiert. So bleibt Ihre Lösung verständlich und weiterentwickelbar.'],
+] : [
+  ['Extend what already works', 'Keep your ERP, CRM or business platform when it fits. AVERNODE connects the gaps and replaces only what needs replacing.'],
+  ['Deliver in useful steps', 'A well-scoped first increment makes value, effort and open questions visible before the work turns into a large programme.'],
+  ['Build for a clean handover', 'Interfaces, decisions and operations are documented so your solution stays understandable and extendable.'],
+];
+---
+<section class="why-avernode" aria-labelledby="why-title">
+  <div class="why-heading"><span class="eyebrow"><i></i>{de ? 'WARUM AVERNODE' : 'WHY AVERNODE'}</span><h2 id="why-title">{de ? 'Wir schließen Lücken zwischen Ihren Systemen und Abläufen.' : 'We close gaps between your systems and workflows.'}</h2></div>
+  <div class="why-list">{points.map(([title, copy], index) => <article><span class="why-number">0{index + 1}</span><div><h3>{title}</h3><p>{copy}</p></div><span class="why-mark" aria-hidden="true">↗</span></article>)}</div>
+  <p class="why-fit">{de ? 'Passt besonders, wenn Standardsoftware Ihren Ablauf nicht abbildet, Daten mehrfach erfasst werden oder Anwendungen nicht zusammenspielen.' : 'A strong fit when off-the-shelf software cannot represent your workflow, data is entered more than once or applications do not work together.'}</p>
+</section>
+<style>
+  .why-avernode{padding:88px 24px 92px;max-width:var(--page);margin:auto}.why-heading{display:grid;grid-template-columns:.7fr 1.3fr;gap:34px;align-items:start}.why-heading .eyebrow{margin-top:12px}.why-heading h2{font:750 clamp(32px,4.3vw,49px)/1.07 var(--font-display);letter-spacing:-.045em;color:var(--navy);max-width:730px;margin:0}.why-list{margin:42px 0 0 25%;border-top:1px solid #b8cbc6}.why-list article{display:grid;grid-template-columns:40px 1fr 20px;gap:15px;padding:22px 0;border-bottom:1px solid #b8cbc6;align-items:start}.why-number{font:10px ui-monospace,monospace;color:#087f76;padding-top:4px}.why-list h3{margin:0 0 6px;font:700 17px var(--font-display);color:#14384b}.why-list p{margin:0;font-size:12px;line-height:1.75;color:#4b636a;max-width:600px}.why-mark{justify-self:end;color:#087f76}.why-fit{margin:26px 0 0 25%;padding:14px 17px;background:#dcefe8;color:#174f4a;font-size:11px;font-weight:600;line-height:1.7;max-width:770px}
+  @media(max-width:700px){.why-avernode{padding:63px 20px}.why-heading{grid-template-columns:1fr;gap:14px}.why-heading .eyebrow{margin:0}.why-list,.why-fit{margin-left:0}.why-list{margin-top:30px}}
+</style>
