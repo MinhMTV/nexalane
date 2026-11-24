@@ -6,7 +6,6 @@ import { pagePath, switchLanguage } from '../lib/paths';
 interface Props { lang: Language; page: PageKey; title: string; description: string; }
 const { lang, page, title, description } = Astro.props;
 const c = content[lang];
-const other: Language = lang === 'de' ? 'en' : 'de';
 const navItems: [PageKey, string][] = [['home', c.nav.home], ['services', c.nav.services], ['solutions', c.nav.solutions], ['process', c.nav.process], ['about', c.nav.about]];
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const siteOrigin = Astro.site?.origin;
@@ -14,17 +13,17 @@ const absolutePage = (language: Language, key: PageKey) => siteOrigin
   ? new URL(`${base}${pagePath(language, key).replace(/^\/+/, '')}`, siteOrigin).toString()
   : undefined;
 const canonical = absolutePage(lang, page);
-const socialImage = siteOrigin ? new URL(`${base}og-avernode.svg`, siteOrigin).toString() : undefined;
+const socialImage = siteOrigin ? new URL(`${base}og-nexalane.svg`, siteOrigin).toString() : undefined;
 ---
 <!doctype html>
-<html lang={lang}>
+<html lang={lang === 'at' ? 'de-AT' : lang === 'de' ? 'de-DE' : 'en'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#10283f" />
     <meta name="description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content={lang === 'de' ? 'de_AT' : 'en_US'} />
+    <meta property="og:locale" content={lang === 'at' ? 'de_AT' : lang === 'de' ? 'de_DE' : 'en_US'} />
     <meta property="og:title" content={`${title} | ${business.brandName}`} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content={business.brandName} />
@@ -41,31 +40,32 @@ const socialImage = siteOrigin ? new URL(`${base}og-avernode.svg`, siteOrigin).t
     {siteOrigin && <link rel="sitemap" type="application/xml" href={new URL(`${base}sitemap.xml`, siteOrigin)} />}
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     {siteOrigin && <>
-      <link rel="alternate" hreflang="de" href={absolutePage('de', page)} />
+      <link rel="alternate" hreflang="de-DE" href={absolutePage('de', page)} />
+      <link rel="alternate" hreflang="de-AT" href={absolutePage('at', page)} />
       <link rel="alternate" hreflang="en" href={absolutePage('en', page)} />
-      <link rel="alternate" hreflang="x-default" href={absolutePage('de', page)} />
+      <link rel="alternate" hreflang="x-default" href={absolutePage('at', page)} />
     </>}
     <title>{title} | {business.brandName}</title>
   </head>
   <body>
-    <a class="skip-link" href="#main">{lang === 'de' ? 'Zum Inhalt springen' : 'Skip to content'}</a>
+    <a class="skip-link" href="#main">{lang !== 'en' ? 'Zum Inhalt springen' : 'Skip to content'}</a>
     <header class="site-header">
       <div class="header-inner"><Mark lang={lang} />
-        <nav aria-label={lang === 'de' ? 'Hauptnavigation' : 'Main navigation'}>
+        <nav aria-label={lang !== 'en' ? 'Hauptnavigation' : 'Main navigation'}>
           {navItems.map(([key, label]) => <a class:list={{ active: key === page }} aria-current={key === page ? 'page' : undefined} href={pagePath(lang, key)}>{label}</a>)}
         </nav>
-        <div class="header-actions"><a class="language" href={switchLanguage(other, page)} lang={other}>{other.toUpperCase()}</a><a class="header-cta" href={pagePath(lang, 'contact')}>{c.cta}<span aria-hidden="true"> ↗</span></a></div>
-        <button class="menu-toggle" aria-label={lang === 'de' ? 'Menü öffnen' : 'Open menu'} aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button>
+        <div class="header-actions"><nav class="locale-options" aria-label="Region und Sprache"><a class:list={{ active: lang === 'de' }} href={switchLanguage('de', page)} lang="de-DE">DE</a><a class:list={{ active: lang === 'at' }} href={switchLanguage('at', page)} lang="de-AT">AT</a><a class:list={{ active: lang === 'en' }} href={switchLanguage('en', page)} lang="en">EN</a></nav><a class="header-cta" href={pagePath(lang, 'contact')}>{c.cta}<span aria-hidden="true"> ↗</span></a></div>
+        <button class="menu-toggle" aria-label={lang !== 'en' ? 'Menü öffnen' : 'Open menu'} aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button>
       </div>
-      <nav class="mobile-nav" id="mobile-nav" aria-label={lang === 'de' ? 'Mobile Navigation' : 'Mobile navigation'}>
+      <nav class="mobile-nav" id="mobile-nav" aria-label={lang !== 'en' ? 'Mobile Navigation' : 'Mobile navigation'}>
         {navItems.map(([key, label]) => <a href={pagePath(lang, key)}>{label}</a>)}
-        <a href={pagePath(lang, 'contact')}>{c.cta} ↗</a><a href={switchLanguage(other,page)} lang={other}>{other.toUpperCase()}</a>
+        <a href={pagePath(lang, 'contact')}>{c.cta} ↗</a><div class="mobile-locales" aria-label="Region und Sprache"><a href={switchLanguage('de',page)} lang="de-DE">DE</a><a href={switchLanguage('at',page)} lang="de-AT">AT</a><a href={switchLanguage('en',page)} lang="en">EN</a></div>
       </nav>
     </header>
     <main id="main"><slot /></main>
     <footer class="site-footer">
-      <div class="footer-main"><div><Mark inverse lang={lang} /><p>{c.footerNote}</p></div><div class="footer-links"><span>{lang === 'de' ? 'ÜBERSICHT' : 'EXPLORE'}</span><a href={pagePath(lang,'services')}>{c.nav.services}</a><a href={pagePath(lang,'solutions')}>{c.nav.solutions}</a><a href={pagePath(lang,'process')}>{c.nav.process}</a><a href={pagePath(lang,'about')}>{c.nav.about}</a></div><div class="footer-links"><span>{lang === 'de' ? 'KONTAKT & RECHTLICHES' : 'CONTACT & LEGAL'}</span><a href={pagePath(lang,'contact')}>{c.nav.contact}</a><a href={pagePath(lang,'legal')}>{lang === 'de' ? 'Impressum' : 'Legal notice'}</a>{business.email && <a href={`mailto:${business.email}`}>{business.email}</a>}</div></div>
-      <div class="footer-bottom"><span>© {new Date().getFullYear()} {business.brandName}</span><span>{lang === 'de' ? 'Klar denken. Gut bauen.' : 'Think clearly. Build well.'}</span></div>
+      <div class="footer-main"><div><Mark inverse lang={lang} /><p>{c.footerNote}</p></div><div class="footer-links"><span>{lang !== 'en' ? 'ÜBERSICHT' : 'EXPLORE'}</span><a href={pagePath(lang,'services')}>{c.nav.services}</a><a href={pagePath(lang,'solutions')}>{c.nav.solutions}</a><a href={pagePath(lang,'process')}>{c.nav.process}</a><a href={pagePath(lang,'about')}>{c.nav.about}</a></div><div class="footer-links"><span>{lang !== 'en' ? 'KONTAKT & RECHTLICHES' : 'CONTACT & LEGAL'}</span><a href={pagePath(lang,'contact')}>{c.nav.contact}</a><a href={pagePath(lang,'legal')}>{lang !== 'en' ? 'Impressum' : 'Legal notice'}</a>{business.email && <a href={`mailto:${business.email}`}>{business.email}</a>}</div></div>
+      <div class="footer-bottom"><span>© {new Date().getFullYear()} {business.brandName}</span><span>{lang !== 'en' ? 'Klar denken. Gut bauen.' : 'Think clearly. Build well.'}</span></div>
     </footer>
     <script>
       const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
@@ -79,9 +79,9 @@ const socialImage = siteOrigin ? new URL(`${base}og-avernode.svg`, siteOrigin).t
     <style is:global>
       :root{--navy:#10283f;--teal:#087f76;--teal-dark:#05685f;--paper:#eaf2ef;--ink:#183347;--muted:#526b70;--line:#cbdad5;--white:#fff;--font-body:'DM Sans',Arial,sans-serif;--font-display:'Manrope','DM Sans',sans-serif;--page:1160px;scroll-behavior:smooth;accent-color:#087f76;caret-color:#087f76}
       *{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.65;background:#fff;-webkit-font-smoothing:antialiased}a{color:inherit}button{font:inherit}.skip-link{position:absolute;top:-60px;left:12px;z-index:99;padding:10px 16px;background:#fff;color:var(--navy)}.skip-link:focus{top:12px}
-      .site-header{height:78px;background:#fbfdfc;border-bottom:1px solid #d9e5e0;position:relative;z-index:20}.header-inner{max-width:var(--page);height:100%;padding:0 24px;margin:auto;display:flex;align-items:center;justify-content:space-between}.header-inner nav{display:flex;gap:32px;margin-left:auto;margin-right:34px}.header-inner nav a,.language{font-size:12px;text-decoration:none;color:#405961;font-weight:600}.header-inner nav a:hover,.header-inner nav a.active{color:var(--teal)}.header-actions{display:flex;align-items:center;gap:20px}.language{border-left:1px solid var(--line);padding-left:20px;color:var(--navy)}.header-cta,.button-primary{display:inline-flex;align-items:center;justify-content:center;gap:11px;padding:11px 17px;background:#087f76;color:#fff;text-decoration:none;font-size:12px;font-weight:700;letter-spacing:.01em;border:1px solid #087f76;transition:background .2s,transform .2s}.header-cta:hover,.button-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}.menu-toggle,.mobile-nav{display:none}
+      .site-header{height:78px;background:#fbfdfc;border-bottom:1px solid #d9e5e0;position:relative;z-index:20}.header-inner{max-width:var(--page);height:100%;padding:0 24px;margin:auto;display:flex;align-items:center;justify-content:space-between}.header-inner>nav{display:flex;gap:32px;margin-left:auto;margin-right:34px}.header-inner>nav a,.locale-options a,.mobile-locales a{font-size:12px;text-decoration:none;color:#405961;font-weight:600}.header-inner>nav a:hover,.header-inner>nav a.active,.locale-options a.active{color:var(--teal)}.header-actions{display:flex;align-items:center;gap:20px}.locale-options{display:flex;gap:9px;border-left:1px solid var(--line);padding-left:16px}.locale-options a,.mobile-locales a{font-size:10px;color:#526b70}.mobile-locales{display:flex;gap:20px;padding-top:10px}.header-cta,.button-primary{display:inline-flex;align-items:center;justify-content:center;gap:11px;padding:11px 17px;background:#087f76;color:#fff;text-decoration:none;font-size:12px;font-weight:700;letter-spacing:.01em;border:1px solid #087f76;transition:background .2s,transform .2s}.header-cta:hover,.button-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}.menu-toggle,.mobile-nav{display:none}
       .site-footer{background:var(--navy);color:#dce6e7;padding:55px 24px 22px}.footer-main,.footer-bottom{max-width:var(--page);margin:auto}.footer-main{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:55px;padding-bottom:42px}.footer-main p{color:#aebdc2;font-size:12px;margin:13px 0 0}.footer-links{display:flex;flex-direction:column;align-items:flex-start;gap:8px}.footer-links span{font:700 9px ui-monospace,monospace;letter-spacing:.13em;color:#8ea4a9;margin:4px 0 8px}.footer-links a{font-size:12px;color:#e0e8e9;text-decoration:none}.footer-links a:hover{color:#77cec2}.footer-bottom{border-top:1px solid #ffffff24;padding-top:17px;display:flex;justify-content:space-between;color:#96aaaf;font:10px ui-monospace,monospace}
-      @media(max-width:850px){.header-inner nav,.header-actions{display:none}.menu-toggle{display:flex;width:44px;height:44px;border:1px solid var(--line);background:#fff;flex-direction:column;gap:5px;align-items:center;justify-content:center}.menu-toggle span{width:17px;height:1px;background:var(--navy)}.mobile-nav.open{display:flex;position:absolute;top:78px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:10px 24px 22px;flex-direction:column;box-shadow:0 12px 24px rgba(0,0,0,.1)}.mobile-nav a{padding:13px 0;text-decoration:none;border-bottom:1px solid #edf1ef;font-size:14px}.footer-main{grid-template-columns:1fr 1fr;gap:30px}.footer-main>div:first-child{grid-column:1/-1}}
+      @media(max-width:850px){.header-inner>nav,.header-actions{display:none}.menu-toggle{display:flex;width:44px;height:44px;border:1px solid var(--line);background:#fff;flex-direction:column;gap:5px;align-items:center;justify-content:center}.menu-toggle span{width:17px;height:1px;background:var(--navy)}.mobile-nav.open{display:flex;position:absolute;top:78px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:10px 24px 22px;flex-direction:column;box-shadow:0 12px 24px rgba(0,0,0,.1)}.mobile-nav a{padding:13px 0;text-decoration:none;border-bottom:1px solid #edf1ef;font-size:14px}.footer-main{grid-template-columns:1fr 1fr;gap:30px}.footer-main>div:first-child{grid-column:1/-1}}
       @media(max-width:560px){.site-header{height:68px}.header-inner{padding:0 18px}.mobile-nav.open{top:68px}.footer-main{grid-template-columns:1fr 1fr;gap:22px}.footer-bottom{gap:20px;flex-wrap:wrap}.site-footer{padding:38px 20px 18px}}
       @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
       ::selection{background:#087f76;color:#fff} :focus-visible{outline:2px solid #087f76;outline-offset:3px;text-decoration-thickness:2px;text-underline-offset:3px} ::-webkit-scrollbar{width:11px} ::-webkit-scrollbar-track{background:#edf3f0} ::-webkit-scrollbar-thumb{background:#91b4ab;border:3px solid #edf3f0} ::-webkit-scrollbar-thumb:hover{background:#087f76}

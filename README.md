@@ -1,6 +1,6 @@
-# AVERNODE Website
+# Nexalane Website
 
-German and English business website built with Astro and deployed as a static site on GitHub Pages.
+German regional sites for Germany (`/de/`) and Austria (`/at/`), plus English (`/en/`), built with Astro and deployed as a static site on GitHub Pages.
 
 ## Run locally
 
@@ -20,16 +20,16 @@ The production site is generated in `dist/`. GitHub Actions deploys every push t
 
 ### Custom domain
 
-1. Register a domain with a registrar.
-2. In the repository, open **Settings → Pages → Custom domain** and enter the domain.
+1. Register `nexalanetech.com` with a domain registrar.
+2. When the domain is registered and DNS can be changed, open **Settings → Pages → Custom domain** and enter `nexalanetech.com`.
 3. At the registrar, point DNS to GitHub Pages using the records shown in [GitHub's custom domain guide](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
-4. In **Settings → Secrets and variables → Actions → Variables**, create `SITE_URL` with the full canonical origin, such as `https://www.example.com`.
+4. In **Settings → Secrets and variables → Actions → Variables**, create `SITE_URL` with `https://nexalanetech.com`.
 5. Wait for DNS and certificate setup, then enable **Enforce HTTPS** in Pages settings.
 
 ## Before launch
 
 - Enter the correct legal provider name, full service address, and any applicable company register, VAT, chamber, and authority details in `src/config/business.ts`.
-- Confirm that `info@minh-vuong.de` and `+49 1577 7240356` are the right public contact details for AVERNODE.
+- Confirm that `info@minh-vuong.de` and `+49 1577 7240356` are the right public contact details for Nexalane. The form currently delivers to that configured inbox.
 - Set the `SITE_URL` Actions variable to the final canonical origin when using a custom domain. Without it, GitHub Pages builds derive the Pages origin from the repository name.
 - After publishing, verify the canonical URLs and submit `/sitemap.xml` in Google Search Console.
 - Decide whether to self-host the Google Fonts files as part of the privacy and performance review.
@@ -38,7 +38,7 @@ The production site is generated in `dist/`. GitHub Actions deploys every push t
 
 ## Project map
 
-- `src/content/pages.ts` — German and English page copy
+- `src/content/pages.ts` — Germany, Austria, and English page copy
 - `src/config/business.ts` — brand, contact, and legal details
 - `src/layouts/SiteLayout.astro` — shared metadata, language links, navigation, and footer
 - `src/pages/` — page routes and generated sitemap

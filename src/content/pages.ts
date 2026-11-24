@@ -1,17 +1,17 @@
-export type Language = 'de' | 'en';
+export type Language = 'de' | 'at' | 'en';
 export type PageKey = 'home' | 'services' | 'solutions' | 'process' | 'about' | 'contact' | 'legal';
 
 const de = {
-  nav: { home: 'Start', services: 'Leistungen', solutions: 'Projekte', process: 'Vorgehen', about: 'Über AVERNODE', contact: 'Kontakt' },
+  nav: { home: 'Start', services: 'Leistungen', solutions: 'Projekte', process: 'Vorgehen', about: 'Über Nexalane', contact: 'Kontakt' },
   cta: 'Projekt besprechen',
   footerNote: 'Software Engineering & Automation · Wien, Österreich',
   pages: {
     home: {
       eyebrow: 'SOFTWARE ENGINEERING · WIEN', title: 'Weniger Handarbeit. Software, die passt.',
-      intro: 'AVERNODE entwickelt interne Webanwendungen, Automatisierungen und Schnittstellen – damit Teams weniger doppelt erfassen, Systeme zusammenspielen und Arbeit nachvollziehbar bleibt.',
+      intro: 'Nexalane entwickelt interne Webanwendungen, Automatisierungen und Schnittstellen – damit Teams weniger doppelt erfassen, Systeme zusammenspielen und Arbeit nachvollziehbar bleibt.',
       primary: 'Projektbeispiele ansehen', secondary: 'Problem besprechen',
       proof: 'Individuelle Software · Automatisierung · Systemintegration',
-      sectionLabel: 'WAS AVERNODE UMSETZT', sectionTitle: 'Von Handarbeit zu einem Ablauf, der zusammenpasst.',
+      sectionLabel: 'WAS NEXALANE UMSETZT', sectionTitle: 'Von Handarbeit zu einem Ablauf, der zusammenpasst.',
       sectionIntro: 'Sie erhalten eine konkrete technische Umsetzung: passende Software, verbundene Systeme oder automatisierte Schritte – abgestimmt auf Ihren Prozess und mit sauberer Übergabe.',
       services: [
         ['01', 'Individuelle Software', 'Interne Webanwendungen mit Rollen, Suche, Freigaben und Berichten – passend zu Ihrem tatsächlichen Ablauf.', 'custom'],
@@ -44,8 +44,8 @@ const de = {
       principleTitle:'Keine Blackbox-Projekte.', principleCopy:'Sie wissen, woran gearbeitet wird, welche Entscheidungen anstehen und was als Nächstes geliefert wird. Umfang und Tempo bleiben an Ihren Prioritäten ausgerichtet.'
     },
     about: {
-      eyebrow:'ÜBER AVERNODE', title:'Technologie mit Verständnis für den Betrieb.', intro:'AVERNODE ist eine unabhängige österreichische Geschäftsmarke für individuelle Softwareentwicklung, Automatisierung und technische Integration.',
-      copyTitle:'Software ist dann gut, wenn sie im Alltag trägt.', copy:'Dafür braucht es mehr als funktionierenden Code: ein klares Verständnis der Abläufe, eine passende technische Grundlage und Lösungen, die sich warten und weiterentwickeln lassen. AVERNODE verbindet diese Perspektiven – direkt, transparent und ohne unnötige Komplexität.',
+      eyebrow:'NEXALANE TECHNOLOGY CONSULTING', title:'Technologie mit Verständnis für den Betrieb.', intro:'Nexalane Technology Consulting entwickelt individuelle Software, Automatisierungen und technische Integrationen für Unternehmen in Österreich und Deutschland.',
+      copyTitle:'Software ist dann gut, wenn sie im Alltag trägt.', copy:'Dafür braucht es mehr als funktionierenden Code: ein klares Verständnis der Abläufe, eine passende technische Grundlage und Lösungen, die sich warten und weiterentwickeln lassen. Nexalane verbindet diese Perspektiven – direkt, transparent und ohne unnötige Komplexität.',
       principles:[['Pragmatisch','Die Lösung orientiert sich am tatsächlichen Problem – nicht an einem Technologie-Trend.'],['Nachvollziehbar','Entscheidungen, Schnittstellen und Übergaben werden verständlich dokumentiert.'],['Langfristig gedacht','Sicherheit, Wartung und mögliche nächste Schritte fließen früh in die Planung ein.']],
       location:'Standort Wien. Zusammenarbeit in Österreich, Deutschland, der Schweiz und international.'
     },
@@ -63,14 +63,14 @@ const de = {
 };
 
 const en = {
-  nav: { home: 'Home', services: 'Services', solutions: 'Projects', process: 'Approach', about: 'About AVERNODE', contact: 'Contact' },
+  nav: { home: 'Home', services: 'Services', solutions: 'Projects', process: 'Approach', about: 'About Nexalane', contact: 'Contact' },
   cta: 'Discuss a project', footerNote: 'Software Engineering & Automation · Vienna, Austria',
   pages: {
     home: {
       eyebrow: 'SOFTWARE ENGINEERING · VIENNA', title: 'Less manual work. Software that fits.',
-      intro: 'AVERNODE builds internal web apps, workflow automation and system integrations—so teams enter less data twice, systems work together and work stays traceable.',
+      intro: 'Nexalane builds internal web apps, workflow automation and system integrations—so teams enter less data twice, systems work together and work stays traceable.',
       primary: 'See project examples', secondary: 'Discuss a problem', proof: 'Custom software · Automation · System integration',
-      sectionLabel: 'WHAT AVERNODE DELIVERS', sectionTitle: 'From manual work to a workflow that fits together.',
+      sectionLabel: 'WHAT NEXALANE DELIVERS', sectionTitle: 'From manual work to a workflow that fits together.',
       sectionIntro: 'You get a concrete technical delivery: purpose-built software, connected systems or automated steps—shaped around your process and handed over properly.',
       services: [['01','Custom software','Internal web apps with roles, search, approvals and reporting shaped around your actual workflow.','custom'],['02','Process automation','Read emails, forms and documents, validate data and surface exceptions for review.','automation'],['03','System integration','Connect APIs and data between ERP, CRM, databases and online services—with error handling.','integration'],['04','Modernisation & maintenance','Stabilise, update and make existing applications easier to maintain, step by step.','maintenance']],
       visualLabel:'CONNECT YOUR SYSTEMS', visualTitle:'One order. One data flow. Fewer handoffs.',
@@ -82,14 +82,15 @@ const en = {
     services: { eyebrow:'SERVICES', title:'Custom software, automation and integrations for your workflow.', intro:'Internal web apps, API connections, document automation and stepwise modernisation. Scope follows the specific need.', sections:[['Custom software','A tool built around your actual work.','Internal web apps, portals and tools with the roles, search, approvals and reporting your workflow needs.','custom'],['Automation','Less copying. Exceptions routed for review.','Read data from email, forms or documents, validate it against agreed rules and surface unclear cases for human review.','automation'],['System integration','Move data between systems reliably.','Connect APIs across ERP, CRM, databases or online stores. Logging and error handling keep data transfers traceable.','integration'],['Modernisation & maintenance','Improve the software you already rely on.','Review code, runtime and interfaces, address concrete risks, and modernise in manageable steps. A full rewrite is not the default.','maintenance']], noteTitle:'The right solution starts with an honest assessment.', noteCopy:'Sometimes an existing platform is the better choice. We consider licensing, process fit, integration needs and ongoing effort before recommending a direction.'},
     solutions: { eyebrow:'PROJECT EXAMPLES', title:'Where manual workflows cost hours every week.', intro:'Time tracking, spreadsheets, weekly reports and invoices: four practical examples show what can be automated and how the time potential is calculated.' },
     process: { eyebrow:'APPROACH', title:'Clarity before code. Progress in small steps.', intro:'Good outcomes come from early alignment, visible progress and decisions grounded in your day-to-day work.', steps:[['01','Understand the workflow','We map the people, systems, exceptions and points where unnecessary effort appears.'],['02','Define the solution','Together, we set goals, priorities, technical boundaries and a useful first delivery scope.'],['03','Build incrementally','You see working results early. Feedback shapes the next cycle before assumptions harden.'],['04','Hand over with care','Documentation, access, operations and next steps are part of the solution from the start.']], principleTitle:'No black-box projects.', principleCopy:'You know what is being worked on, which decisions are coming up and what will be delivered next. Scope and pace stay aligned with your priorities.'},
-    about: { eyebrow:'ABOUT AVERNODE', title:'Technology grounded in how businesses operate.', intro:'AVERNODE is an independent Austrian business brand for custom software development, automation and technical integration.', copyTitle:'Software is good when it holds up in daily work.', copy:'That takes more than code that runs: a clear understanding of workflows, a suitable technical foundation and solutions that can be maintained and extended. AVERNODE brings these perspectives together—directly, transparently and without unnecessary complexity.', principles:[['Pragmatic','The solution follows the actual problem, not a technology trend.'],['Understandable','Decisions, interfaces and handovers are documented clearly.'],['Built for change','Security, maintenance and future steps are part of early planning.']], location:'Based in Vienna. Working across Austria, Germany, Switzerland and internationally.'},
+    about: { eyebrow:'NEXALANE TECHNOLOGY CONSULTING', title:'Technology grounded in how businesses operate.', intro:'Nexalane Technology Consulting builds custom software, automation and integrations for teams across Austria and Germany.', copyTitle:'Software is good when it holds up in daily work.', copy:'That takes more than code that runs: a clear understanding of workflows, a suitable technical foundation and solutions that can be maintained and extended. Nexalane brings these perspectives together—directly, transparently and without unnecessary complexity.', principles:[['Pragmatic','The solution follows the actual problem, not a technology trend.'],['Understandable','Decisions, interfaces and handovers are documented clearly.'],['Built for change','Security, maintenance and future steps are part of early planning.']], location:'Based in Vienna. Working across Austria, Germany, Switzerland and internationally.'},
       contact: { eyebrow:'CONTACT', title:'Tell us what should work better.', intro:'A brief outline of your process, the systems involved and your goal is enough to get started. Together, we can identify a useful next step.', ready:'', booking:'', privacy:''},
       legal: { eyebrow:'LEGAL', title:'Legal notice', intro:'', note:'' }
   }
 };
 
-export const content = { de, en };
+export const content = { de, at: de, en };
 export const slugs: Record<Language, Record<PageKey, string>> = {
   de: { home:'', services:'leistungen', solutions:'loesungen', process:'vorgehen', about:'ueber-uns', contact:'kontakt', legal:'impressum' },
+  at: { home:'', services:'leistungen', solutions:'loesungen', process:'vorgehen', about:'ueber-uns', contact:'kontakt', legal:'impressum' },
   en: { home:'', services:'services', solutions:'solutions', process:'approach', about:'about', contact:'contact', legal:'legal' },
 };

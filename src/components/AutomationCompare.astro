@@ -1,7 +1,7 @@
 ---
-interface Props { lang: 'de' | 'en' }
+interface Props { lang: 'de' | 'at' | 'en' }
 const { lang } = Astro.props;
-const de = lang === 'de';
+const de = lang !== 'en';
 ---
 <section class="compare">
   <div class="compare-head"><span class="eyebrow"><i></i>{de?'PROZESSAUTOMATISIERUNG':'PROCESS AUTOMATION'}</span><h2>{de?'Von manuellen Übergaben zu einem nachvollziehbaren Ablauf.':'From manual handoffs to a workflow you can trace.'}</h2></div>

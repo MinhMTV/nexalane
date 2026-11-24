@@ -5,7 +5,7 @@ import { slugs, type Language, type PageKey } from '../content/pages';
 export const GET: APIRoute = () => {
   const site = import.meta.env.SITE;
   const routes: Array<[Language, PageKey]> = [];
-  for (const language of ['de', 'en'] as const) {
+  for (const language of ['de', 'at', 'en'] as const) {
     for (const page of Object.keys(slugs[language]) as PageKey[]) routes.push([language, page]);
   }
   const entries = site

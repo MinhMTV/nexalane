@@ -3,7 +3,7 @@ import type { Language } from '../content/pages';
 import { pagePath } from '../lib/paths';
 interface Props { lang: Language }
 const { lang } = Astro.props;
-const de = lang === 'de';
+const de = lang !== 'en';
 const examples = de ? [
   {
     topic: 'ZEITERFASSUNG · LOHNVERRECHNUNG',

@@ -1,7 +1,7 @@
 /** Central source for brand and business details. Fill in verified values before launch. */
 export const business = {
-  brandName: 'AVERNODE',
-  descriptor: 'Software Engineering & Automation',
+  brandName: 'Nexalane',
+  descriptor: 'Technology Consulting',
   legalName: '',
   address: {
     street: '',
@@ -23,10 +23,11 @@ export const business = {
 };
 
 export const site = {
-  defaultLanguage: 'de' as const,
-  languages: ['de', 'en'] as const,
+  defaultLanguage: 'at' as const,
+  languages: ['de', 'at', 'en'] as const,
   localePaths: {
     de: { home: 'de', services: 'de/leistungen', solutions: 'de/loesungen', process: 'de/vorgehen', about: 'de/ueber-uns', contact: 'de/kontakt', legal: 'de/impressum' },
+    at: { home: 'at', services: 'at/leistungen', solutions: 'at/loesungen', process: 'at/vorgehen', about: 'at/ueber-uns', contact: 'at/kontakt', legal: 'at/impressum' },
     en: { home: 'en', services: 'en/services', solutions: 'en/solutions', process: 'en/approach', about: 'en/about', contact: 'en/contact', legal: 'en/legal' },
   },
 };

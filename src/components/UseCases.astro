@@ -1,7 +1,7 @@
 ---
-interface Props { lang: 'de' | 'en' }
+interface Props { lang: 'de' | 'at' | 'en' }
 const { lang } = Astro.props;
-const german = lang === 'de';
+const german = lang !== 'en';
 const cases = german ? [
   ['Zeiterfassung','Time tracking','Operations / Woche 24'],['Auftragsverwaltung','Orders / Aufträge','Offene Vorgänge'],['Lager & Inventar','Inventory / Lager','Bestandsübersicht'],
   ['Dokumentenverarbeitung','Document flow','Eingangsprüfung'],['Reporting','Business reporting','Monatsauswertung'],['API-Synchronisierung','Data sync','Letzte Synchronisierung'],

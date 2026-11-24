@@ -1,8 +1,9 @@
 ---
-interface Props { lang: 'de' | 'en' }
-const de = Astro.props.lang === 'de';
+interface Props { lang: 'de' | 'at' | 'en' }
+const { lang } = Astro.props;
+const de = lang !== 'en';
 ---
-<section class="savings" aria-labelledby="savings-title" data-lang={de ? 'de' : 'en'}>
+<section class="savings" aria-labelledby="savings-title" data-lang={lang}>
   <div class="savings-intro">
     <span class="eyebrow light"><i></i>{de ? 'POTENZIALRECHNER' : 'POTENTIAL CALCULATOR'}</span>
     <h2 id="savings-title">{de ? 'Wie viel Zeit bindet Ihr Ablauf?' : 'How much time does this workflow take?'}</h2>
@@ -29,7 +30,7 @@ const de = Astro.props.lang === 'de';
   const calculator = document.querySelector<HTMLElement>('[data-calculator]');
   if (calculator) {
     const lang = calculator.closest<HTMLElement>('.savings')?.dataset.lang ?? 'de';
-    const numberFormat = new Intl.NumberFormat(lang === 'de' ? 'de-AT' : 'en-IE', { maximumFractionDigits: 0 });
+    const numberFormat = new Intl.NumberFormat(lang === 'at' ? 'de-AT' : lang === 'de' ? 'de-DE' : 'en-IE', { maximumFractionDigits: 0 });
     const get = (selector: string) => calculator.querySelector<HTMLInputElement>(selector);
     const hours = get('[data-hours]');
     const rate = get('[data-rate]');
@@ -44,7 +45,7 @@ const de = Astro.props.lang === 'de';
       const annualPotential = weeklyHours * hourlyCost * automatable * 52;
       const hoursFreed = weeklyHours * automatable;
       if (annual) annual.textContent = `€ ${numberFormat.format(annualPotential)}`;
-      if (hoursResult) hoursResult.textContent = lang === 'de'
+      if (hoursResult) hoursResult.textContent = lang !== 'en'
         ? `${new Intl.NumberFormat('de-AT', { maximumFractionDigits: 1 }).format(hoursFreed)} Stunden pro Woche`
         : `${new Intl.NumberFormat('en-IE', { maximumFractionDigits: 1 }).format(hoursFreed)} hours per week`;
       if (hoursAnnual) hoursAnnual.textContent = `${numberFormat.format(hoursFreed * 52)} h`;

@@ -1,19 +1,25 @@
 ---
-interface Props { inverse?: boolean; compact?: boolean; lang?: 'de' | 'en' }
+interface Props { inverse?: boolean; compact?: boolean; lang?: 'de' | 'at' | 'en' }
 import { business } from '../config/business';
 const { inverse = false, compact = false, lang = 'de' } = Astro.props;
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const homeHref = `${base}${lang}/`;
 ---
-<a class:list={['brand', { inverse, compact }]} href={homeHref} aria-label={`${business.brandName} – ${lang === 'de' ? 'Startseite' : 'Home'}`}>
-  <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
-    <path d="M7 29V11l13 18V11l13 18V11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="square" stroke-linejoin="miter" />
-    <circle cx="33" cy="29" r="2.1" fill="currentColor" />
+<a class:list={['brand', { inverse, compact }]} href={homeHref} aria-label={`${business.brandName} Technology Consulting – ${lang === 'en' ? 'Home' : 'Startseite'}`}>
+  <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+    <path d="M6 5h5l26 27V5h5v38h-5L11 16v27H6z" fill="currentColor" />
+    <path d="M34 5h8v10h-8z" fill="#59ddc7" />
   </svg>
-  {!compact && <span class="brand-word">{business.brandName}</span>}
+  {!compact && <span class="brand-lockup"><span class="brand-word"><span>nexa</span><span class="brand-accent">lane</span></span><span class="brand-descriptor">Technology Consulting</span></span>}
 </a>
 <style>
-  .brand{display:inline-flex;align-items:center;gap:.7rem;color:var(--navy);text-decoration:none;font-weight:800;letter-spacing:.11em;font-size:1.04rem}
-  .brand-mark{width:35px;height:35px;color:var(--teal)}.brand.inverse{color:#fff}.brand.inverse .brand-mark{color:#68c4b9}
+  .brand{display:inline-flex;align-items:center;gap:.72rem;color:#111b26;text-decoration:none;font-family:var(--font-body);font-weight:700;letter-spacing:-.035em;font-size:1.22rem;line-height:1}
+  .brand-mark{width:38px;height:38px;flex:none;color:#15202b}
+  .brand-lockup{display:grid;gap:5px}
+  .brand-word{letter-spacing:-.055em;font-size:1.45rem;font-weight:700;color:#15202b}
+  .brand-accent{color:#16a992}
+  .brand-descriptor{font-size:.55rem;font-weight:600;letter-spacing:.055em;text-transform:uppercase;color:#627582}
+  .brand.inverse{color:#f8fbfc}.brand.inverse .brand-mark{color:#f8fbfc}.brand.inverse .brand-word{color:#f8fbfc}.brand.inverse .brand-descriptor{color:#aabac8}.brand.inverse .brand-accent{color:#59ddc7}
   .brand.compact .brand-mark{width:31px;height:31px}
+  @media(max-width:850px){.brand-word{font-size:1.28rem}.brand-descriptor{font-size:.5rem}.brand-mark{width:34px;height:34px}}
 </style>

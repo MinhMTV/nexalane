@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" rx="34" fill="#111b26"/>
+  <path d="M815 0h385v630H815z" fill="#142430"/>
+  <g transform="translate(54 52)">
+    <path d="M0 4h7l34 35V4h7v53h-7L7 22v35H0z" fill="#f8fbfc"/>
+    <path d="M41 4h7v13h-7z" fill="#59ddc7"/>
+    <text x="70" y="38" fill="#f8fbfc" font-family="Arial,sans-serif" font-size="38" font-weight="700" letter-spacing="-1">nexa<tspan fill="#59ddc7">lane</tspan></text>
+    <text x="72" y="59" fill="#aabac8" font-family="Arial,sans-serif" font-size="12" font-weight="600" letter-spacing="2">TECHNOLOGY CONSULTING</text>
+  </g>
+  <path d="M54 155h1092" stroke="#344653"/>
+  <text x="54" y="268" fill="#f8fbfc" font-family="Arial,sans-serif" font-size="61" font-weight="700" letter-spacing="-2">Engineering what's next.</text>
+  <text x="56" y="328" fill="#bbc8d2" font-family="Arial,sans-serif" font-size="24">Software Engineering. Digital Transformation. AI &amp; Automation.</text>
+  <text x="56" y="540" fill="#8ba3b2" font-family="Arial,sans-serif" font-size="20">nexalanetech.com</text>
+  <path d="M1000 230l66 68-66 68v-35l32-33-32-33z" fill="#59ddc7"/>
+  <path d="M1074 232h60v15h-60zm0 32h42v15h-42zm0 32h54v15h-54zm0 32h38v15h-38z" fill="#45606e"/>
+</svg>

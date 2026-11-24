@@ -2,13 +2,13 @@
 import type { Language } from '../content/pages';
 interface Props { lang: Language; recipient: string }
 const { lang, recipient } = Astro.props;
-const de = lang === 'de';
+const de = lang !== 'en';
 ---
 <form class="contact-form" lang={lang} action={`https://formsubmit.co/ajax/${recipient}`} method="POST">
-  <span class="form-index">AV / CONTACT</span>
+  <span class="form-index">NEXALANE / CONTACT</span>
   <h2>{de ? 'Projektanfrage senden.' : 'Send a project enquiry.'}</h2>
   <p class="form-intro">{de ? 'Ein paar Stichworte reichen für den Anfang.' : 'A few notes are enough to get started.'}</p>
-  <input type="hidden" name="_subject" value={de ? 'Neue AVERNODE Projektanfrage' : 'New AVERNODE project enquiry'} />
+  <input type="hidden" name="_subject" value={de ? 'Neue Nexalane Projektanfrage' : 'New Nexalane project enquiry'} />
   <input type="hidden" name="_template" value="table" />
   <label>{de ? 'Name' : 'Name'}<input name="name" type="text" autocomplete="name" required maxlength="120" /></label>
   <label>{de ? 'E-Mail-Adresse' : 'Email address'}<input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
@@ -29,7 +29,7 @@ const de = lang === 'de';
       if (!button || !status) return;
       const original = button.innerHTML;
       button.disabled = true;
-      button.innerHTML = `${form.lang === 'de' ? 'Wird gesendet' : 'Sending'} <span aria-hidden="true">…</span>`;
+      button.innerHTML = `${form.lang !== 'en' ? 'Wird gesendet' : 'Sending'} <span aria-hidden="true">…</span>`;
       status.textContent = '';
       status.classList.remove('success', 'error');
       try {
@@ -41,10 +41,10 @@ const de = lang === 'de';
         const result = await response.json();
         if (!response.ok || result.success === false || result.success === 'false') throw new Error('submission_failed');
         form.reset();
-        status.textContent = form.lang === 'de' ? 'Danke. Ihre Nachricht wurde gesendet.' : 'Thank you. Your message has been sent.';
+        status.textContent = form.lang !== 'en' ? 'Danke. Ihre Nachricht wurde gesendet.' : 'Thank you. Your message has been sent.';
         status.classList.add('success');
       } catch {
-        status.textContent = form.lang === 'de' ? 'Senden nicht möglich. Bitte versuchen Sie es erneut oder schreiben Sie direkt per E-Mail.' : 'Could not send. Please try again or email us directly.';
+        status.textContent = form.lang !== 'en' ? 'Senden nicht möglich. Bitte versuchen Sie es erneut oder schreiben Sie direkt per E-Mail.' : 'Could not send. Please try again or email us directly.';
         status.classList.add('error');
       } finally {
         button.disabled = false;
