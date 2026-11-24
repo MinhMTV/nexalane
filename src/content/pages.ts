@@ -8,7 +8,7 @@ const de = {
   pages: {
     home: {
       eyebrow: 'SOFTWARE ENGINEERING · WIEN', title: 'Weniger Handarbeit. Software, die passt.',
-      intro: 'Nexalane entwickelt interne Webanwendungen, Automatisierungen und Schnittstellen – damit Teams weniger doppelt erfassen, Systeme zusammenspielen und Arbeit nachvollziehbar bleibt.',
+      intro: 'Nexalane verbindet Ihre bestehenden Systeme und automatisiert Zeiterfassung, Excel-Abgleiche und Rechnungsprüfung. Das reduziert doppelte Eingaben und Nacharbeit – und kann je nach Ablauf mehrere Stunden pro Woche freisetzen.',
       primary: 'Projektbeispiele ansehen', secondary: 'Problem besprechen',
       proof: 'Individuelle Software · Automatisierung · Systemintegration',
       sectionLabel: 'WAS NEXALANE UMSETZT', sectionTitle: 'Von Handarbeit zu einem Ablauf, der zusammenpasst.',
@@ -68,7 +68,7 @@ const en = {
   pages: {
     home: {
       eyebrow: 'SOFTWARE ENGINEERING · VIENNA', title: 'Less manual work. Software that fits.',
-      intro: 'Nexalane builds internal web apps, workflow automation and system integrations—so teams enter less data twice, systems work together and work stays traceable.',
+      intro: 'Nexalane connects your existing systems and automates time tracking, spreadsheet reconciliation and invoice checks. That cuts duplicate entry and rework, and can free up several hours each week, depending on the workflow.',
       primary: 'See project examples', secondary: 'Discuss a problem', proof: 'Custom software · Automation · System integration',
       sectionLabel: 'WHAT NEXALANE DELIVERS', sectionTitle: 'From manual work to a workflow that fits together.',
       sectionIntro: 'You get a concrete technical delivery: purpose-built software, connected systems or automated steps—shaped around your process and handed over properly.',
